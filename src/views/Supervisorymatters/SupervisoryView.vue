@@ -7,46 +7,47 @@
         ref="ruleForm"
         label-width="92px"
       >
-        <el-form-item label="标题" prop="name">
+        <el-form-item label="标题" >
           <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="正文" prop="name">
+        <el-form-item label="正文" >
           <el-input v-model="ruleForm.name" type="textarea" :rows="4"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="执行部门" prop="name">
+            <el-form-item label="执行部门" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="协办部门" prop="name">
+            <el-form-item label="协办部门" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="抄送人" prop="name">
+            <el-form-item label="审批人">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="开始时候" prop="name">
+            <el-form-item label="开始时候" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="执行负责人" prop="name">
+            <el-form-item label="执行负责人" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="审批人" prop="name">
+            <el-form-item label="审批人" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="抄送人" prop="name">
+            <el-form-item label="抄送人" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="结束时间" prop="name">
+            <el-form-item label="结束时间" >
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+        <div class="line"></div>
         <div class="report_number">
           <div class="text_button">
             <span class="text">汇报期数 &nbsp; &nbsp; &nbsp; 2</span>
-            <el-button  round type="primary">添加</el-button>
+            <!-- <el-button  round type="primary">添加</el-button> -->
           </div>
 
           <el-row>
@@ -63,39 +64,22 @@
             <el-col :span="12">
               <el-form-item label="二期">
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-                <i class="el-icon-remove"></i>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="三期">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-                <i class="el-icon-remove"></i>
-              </el-form-item>
-            </el-col>
+           
           </el-row>
         </div>
+        <!-- nextnext -->
         <el-form-item label="附件" class="upload_file" >
             <div >
-          <el-upload
-            class="upload-demo"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
-            :on-remove="handleRemove"
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="fileList"
-          >
-            <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
+         
         </div>
         </el-form-item>
         
 
         <el-form-item class="submi_button">
-          <el-button type="primary" @click="submitForm('ruleForm')" round>提交</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" round>通过</el-button>
+          <el-button class="un_through" @click="submitForm('ruleForm')" round>不通过</el-button>
        
         </el-form-item>
       </el-form>
@@ -109,7 +93,7 @@ export default {
     return {
       value1: "",
       ruleForm: {
-        name: "",
+        name: "企业增长总值",
         region: "",
         date1: "",
         date2: "",
@@ -201,16 +185,17 @@ export default {
   .newItem_content {
     width: 100%;
     .report_number {
+      // border-top: 1px solid #cccccc;
       padding: 34px 20px 30px 0;
-      background-color: white;
-      border-radius: 10px;
+      // background-color: white;
+      // border-radius: 10px;
       .text_button {
         display: flex;
         justify-content: space-between;
         margin-bottom: 29px;
       }
       .text {
-          margin-left: 29px;
+          margin-left: -14px;
         font-family: MicrosoftYaHei-Bold;
         font-size: 24px;
       }
@@ -238,8 +223,21 @@ export default {
             border: none;
             background-color: #f99d5a
         }
+        .un_through{
+          width: 150px;
+          color: #f99d5a;
+          border: 1px solid #f99d5a;
+        }
     }
     // border:1px solid red;
+  }
+  .newItem_content /deep/ .el-input__inner {
+    background-color: #f0f0f0;
+    border: none;
+  }
+  .newItem_content /deep/ .el-textarea__inner {
+    background-color: #f0f0f0;
+    border: none;
   }
 }
 </style>

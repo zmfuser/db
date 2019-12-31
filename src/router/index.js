@@ -14,81 +14,85 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import( '../views/Home.vue')
 
   },
   {
     path: '/newItems',
     name: 'newItems',
-    component: () => import(/* webpackChunkName: "about" */ '../views/main/newItems.vue')
+    component: () => import( '../views/main/newItems.vue')
   },
   {
     path: '/Supervisorymatters',
     name: 'Supervisorymatters',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Supervisorymatters/Supervisorymatters.vue')
+    component: () => import( '../views/Supervisorymatters/Supervisorymatters.vue')
+  },
+  {
+    path: '/SupervisoryView',
+    name: 'SupervisoryView',
+    component: () => import( '../views/Supervisorymatters/SupervisoryView.vue')
   },
   {
     path: '/delaymatters',
     name: 'delaymatters',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Delaymatters/Delaymatters.vue')
+    component: () => import( '../views/Delaymatters/Delaymatters.vue')
   },
   {
     path: '/examination_atters',
     name: 'examination_atters',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ExaminationMatters/ExaminationMatters.vue')
+    component: () => import( '../views/ExaminationMatters/ExaminationMatters.vue')
   },
   {
     path: '/ItemsReview',
     name: 'ItemsReview',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ExaminationMatters/ItemsReview.vue')
+    component: () => import( '../views/ExaminationMatters/ItemsReview.vue')
+  },
+  {
+    path: '/ItemReviewDatil',
+    name: 'ItemReviewDatil',
+    component: () => import( '../views/ExaminationMatters/ItemReviewDatil.vue')
   },
   {
     path: '/ItemEvaluation',
     name: 'ItemEvaluation',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ItemEvaluation/Itemevaluation.vue')
+    component: () => import( '../views/ItemEvaluation/Itemevaluation.vue')
   },
   {
     path: '/ReportingMatters',
     name: 'ReportingMatters',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ReportingMatters/ReportingMmatters.vue')
+    component: () => import( '../views/ReportingMatters/ReportingMmatters.vue')
+  },
+  {
+    path: '/ReportingMattersDital',
+    name: 'ReportingMattersDital',
+    component: () => import( '../views/ReportingMatters/ReportingMattersDital.vue')
   },
   {
     path: '/All',
     name: 'All',
-    component: () => import(/* webpackChunkName: "about" */ '../views/All/All.vue')
+    component: () => import( '../views/All/All.vue')
   },
   {
     path: '/DataKanban',
     name: 'DataKanban',
-    component: () => import(/* webpackChunkName: "about" */ '../views/DatKanban/DataKanban.vue')
+    component: () => import( '../views/DatKanban/DataKanban.vue')
   },
-]
-export const asyncRouterMap = [
   {
     path: '/Supervisorymatters',
     name: 'Supervisorymatters',
-    component: () => import('@/views/Supervisorymatters/Supervisorymatters.vue'),
-    meta: {
-      title: '督办事项',
-      icon: 'nested'
-    },
-    children: [
-      // {
-      //   path: '/BsHealthGuard',
-      //   name: '督办事项',
-      //   component: () => import('./views/home/searchResult.vue'),
-      //   meta: {
-      //     title: '督办事项'
-      //   }
-      // },
-
-    ]
+    component: () => import( '../views/Supervisorymatters/Supervisorymatters.vue')
+  },
+  {
+    path: '/PublicDetails',
+    name: 'PublicDetails',
+    component: () => import( '../components/PublicDetails.vue')
   },
 ]
+
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
-  routes: [...asyncRouterMap, ...routes]
+  routes: routes
 })
 
 export default router

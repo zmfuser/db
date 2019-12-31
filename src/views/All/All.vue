@@ -11,7 +11,7 @@
         <div class="table_tatil">全部</div>
         <div>
           <template>
-            <el-table :data="tableData" stripe style="width: 100%">
+            <el-table :data="tableData" stripe style="width: 100%" @row-click="toDital">
               <el-table-column type="selection" width="55" align="center"></el-table-column>
               <el-table-column prop="date" label="督办事项" width="180" align="center"></el-table-column>
               <el-table-column prop="name" label="项目执行人" width="180" align="center"></el-table-column>
@@ -166,6 +166,10 @@ export default {
     };
   },
   methods: {
+    // 查看详情
+    toDital(){
+      this.$router.push("/PublicDetails")
+    },
     //设置管理员
     setAdmin() {
       this.dialogTableVisible = true;
@@ -239,7 +243,19 @@ export default {
     }
     .dialog_sytle /deep/ .el-dialog__header {
       background-color: #f2f2f2;
+      padding: 10px 20px;
+      height: 46px;
     }
+    .dialog_sytle /deep/ .el-icon-close:before {
+      position: absolute;
+      right: 0;
+      top: -4px;
+    }
+    .dialog_sytle /deep/ .el-dialog__title {
+      font-size: 14px;
+      color: #303133;
+    }
+   
     .dialog_sytle /deep/ .el-dialog__body {
       padding: 30px 20px 0 20px;
     }

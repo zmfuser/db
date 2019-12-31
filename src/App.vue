@@ -11,12 +11,10 @@
 <script>
 // @ is an alias to /src
 import AsideAll from "@/views/Aside/aside";
-import breadCrumb from "@/components/Breadcrumb";
 
 export default {
   components: {
     AsideAll,
-    breadCrumb
   }
 };
 </script>

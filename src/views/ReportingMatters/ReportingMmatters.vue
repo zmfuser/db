@@ -5,7 +5,7 @@
         <div class="table_tatil">汇报事项</div>
         <div>
           <template>
-            <el-table :data="tableData" stripe style="width: 100%">
+            <el-table :data="tableData" stripe style="width: 100%" @row-click="rowClick">
               <el-table-column prop="date" label="督办事项" width="180" align="center"></el-table-column>
               <el-table-column prop="name" label="期数" width="180" align="center"></el-table-column>
               <el-table-column prop="address" label="项目执行人" align="center"></el-table-column>
@@ -39,6 +39,7 @@
 export default {
   data() {
     return {
+      currentPage4:3,
       tableData: [
         {
           date: "2016-05-02",
@@ -64,6 +65,10 @@ export default {
     };
   },
   methods: {
+    // 表格点击行
+    rowClick(){
+      this.$router.push("/ReportingMattersDital")
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },

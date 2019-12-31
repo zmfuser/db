@@ -9,7 +9,7 @@
         <div class="table_tatil">督办事项</div>
         <div>
           <template>
-            <el-table :data="tableData" stripe style="width: 100%">
+            <el-table :data="tableData" stripe style="width: 100%" @row-click="toSupervisoryView">
               <el-table-column type="selection" width="55" align="center"></el-table-column>
               <el-table-column prop="date" label="督办事项" width="180" align="center"></el-table-column>
               <el-table-column prop="name" label="执行人" width="180" align="center"></el-table-column>
@@ -40,6 +40,7 @@
 export default {
   data() {
     return {
+      currentPage4:5,
       tableData: [
         {
           date: "2016-05-02",
@@ -65,6 +66,10 @@ export default {
     };
   },
   methods: {
+    // 查看详情
+    toSupervisoryView(){
+      this.$router.push("/SupervisoryView")
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },

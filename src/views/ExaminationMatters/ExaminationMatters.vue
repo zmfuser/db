@@ -15,7 +15,7 @@
         <div class="table_tatil">事项审批</div>
         <div>
           <template>
-            <el-table :data="tableData" stripe style="width: 100%">
+            <el-table :data="tableData" stripe style="width: 100%"  @row-click="toDital">
               <el-table-column type="selection" width="55" align="center"></el-table-column>
               <el-table-column prop="date" label="督办事项" width="180" align="center"></el-table-column>
               <el-table-column prop="name" label="项目执行人" width="180" align="center"></el-table-column>
@@ -51,6 +51,7 @@
 export default {
   data() {
     return {
+      currentPage4: 4,
       tableData: [
         {
           date: "2016-05-02",
@@ -76,6 +77,16 @@ export default {
     };
   },
   methods: {
+    // 查看详情
+    toDital(){
+      // this.$router.push("/PublicDetails")
+      this.$router.push({
+        name:"PublicDetails",
+        query:{
+          note:"详情页面没有期数"
+        }
+      })
+    },
     examinate(){
       this.$router.push("/ItemsReview")
     },

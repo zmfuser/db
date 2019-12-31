@@ -39,6 +39,7 @@
 export default {
   data() {
     return {
+      currentPage4: 4,
       tableData: [
         {
           date: "2016-05-02",
