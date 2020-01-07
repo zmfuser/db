@@ -3,7 +3,7 @@
     <div class="all_content">
       <div class="all_button">
         <div>
-          <el-button type="danger" round>删除</el-button>
+          <el-button type="danger" round @click="dialogTableVisibleDeleteFun">删除</el-button>
           <el-button type="primary" @click="setAdmin" round>设置管理员</el-button>
         </div>
       </div>
@@ -19,7 +19,11 @@
               <el-table-column prop="address" label="结束时间" align="center"></el-table-column>
               <el-table-column prop="address" label="操作" align="center">
                 <template slot-scope="scope">
-                  <el-button class="notThrough_button" round @click="updatTwodeparm(scope.row)">编辑</el-button>
+                  <el-button
+                    class="notThrough_button"
+                    round
+                    @click.stop="updatTwodeparm(scope.row)"
+                  >编辑</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -89,6 +93,24 @@
         </el-dialog>
       </div>
       <div class="dialog_sytle">
+        <el-dialog title="编辑" width="36%" :visible.sync="dialogTableVisiblePing">
+          <el-form ref="form" :model="sizeForm" label-width="43px" class="form_padding">
+            <el-form-item label="标题" class="selete_person">
+              <el-input v-model="sizeForm.name"></el-input>
+            </el-form-item>
+            <div class="radio">
+              <template>
+                <el-radio v-model="radio" label="1">执行</el-radio>
+                <el-radio v-model="radio" label="2" style="margin-left:100px">中止</el-radio>
+              </template>
+            </div>
+          </el-form>
+          <div class="foot_button">
+            <el-button round>确定</el-button>
+          </div>
+        </el-dialog>
+      </div>
+      <div class="dialog_sytle">
         <el-dialog title="设置管理员" width="36%" :visible.sync="dialogTableVisible">
           <!-- <div style="margin: 15px 0;"></div> -->
           <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
@@ -115,6 +137,33 @@
           </div>
         </el-dialog>
       </div>
+      <div class="dialog_sytle">
+        <el-dialog title="删除管理员" width="36%" :visible.sync="dialogTableVisibleDelete">
+          <!-- <div style="margin: 15px 0;"></div> -->
+          <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+            <el-checkbox
+              class="checkbox_width"
+              v-for="city in cities"
+              :label="city"
+              :key="city"
+            >{{city}}</el-checkbox>
+          </el-checkbox-group>
+          <div class="dialog_foot">
+            <div>
+              <el-checkbox
+                :indeterminate="isIndeterminate"
+                v-model="checkAll"
+                @change="handleCheckAllChange"
+              >全选</el-checkbox>
+            </div>
+
+            <div>
+              <el-button class="dialog_foot_button" size="medium"  round>删除</el-button>
+              <el-button class="dialog_foot_button" size="medium" @click="dialogTableVisibleDelete=false" round>取消</el-button>
+            </div>
+          </div>
+        </el-dialog>
+      </div>
     </div>
   </div>
 </template>
@@ -135,7 +184,10 @@ export default {
     return {
       dialogTableVisible: false,
       dialogTableVisibleAdd: false,
+      dialogTableVisiblePing: false,
+      dialogTableVisibleDelete: false,
       currentPage4: 4,
+      radio: 1,
       tableData: [
         {
           date: "2016-05-02",
@@ -162,23 +214,37 @@ export default {
       checkedCities: ["上海", "北京"],
       cities: cityOptions,
       isIndeterminate: true,
-      sizeForm: {}
+      sizeForm: {
+        name: "aaaaaaaaa"
+      }
     };
   },
   methods: {
     // 查看详情
-    toDital(){
-      this.$router.push("/PublicDetails")
+    toDital() {
+      // this.$router.push("/PublicDetails")
+      this.$router.push({
+        name: "PublicDetails",
+        query: {
+          note: "all页面，不需要底部按钮"
+        }
+      });
     },
     //设置管理员
     setAdmin() {
       this.dialogTableVisible = true;
     },
+    //删除管理员
+    dialogTableVisibleDeleteFun() {
+      this.dialogTableVisibleDelete = true;
+    },
     //新增
     addPerpson() {
       this.dialogTableVisibleAdd = true;
     },
-    updatTwodeparm(val) {},
+    updatTwodeparm() {
+      this.dialogTableVisiblePing = true;
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
@@ -241,6 +307,58 @@ export default {
         text-align: right;
       }
     }
+    .dialog_sytle {
+      .form_padding {
+        // padding: 0 20px;
+      }
+      .allEvaluation_scorllbar {
+        padding: 0 20px;
+      }
+      .foot_button {
+        // padding: 0 20px;
+
+        text-align: right;
+        .el-button {
+          background-color: #f0914d;
+          color: white;
+          border: none;
+          margin-bottom: 20px;
+        }
+      }
+      .allEvaluation {
+        display: flex;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 25px;
+        .allEvaluation_left {
+          .picture {
+            border-radius: 50%;
+            background-color: #f0914d;
+            text-align: center;
+            line-height: 68px;
+            width: 68px;
+            height: 68px;
+            margin-right: 21px;
+          }
+        }
+        .allEvaluation_right {
+          .name {
+            font-size: 16px;
+            margin-bottom: 13px;
+          }
+
+          .ditail_text {
+            font-family: MicrosoftYaHei;
+            font-size: 12px;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 20px;
+            letter-spacing: 0px;
+            color: #333333;
+            margin-bottom: 30px;
+          }
+        }
+      }
+    }
     .dialog_sytle /deep/ .el-dialog__header {
       background-color: #f2f2f2;
       padding: 10px 20px;
@@ -255,7 +373,7 @@ export default {
       font-size: 14px;
       color: #303133;
     }
-   
+
     .dialog_sytle /deep/ .el-dialog__body {
       padding: 30px 20px 0 20px;
     }
@@ -277,29 +395,48 @@ export default {
         border: 1px solid #f0934d;
       }
       .selete_person /deep/ .el-input__inner {
-        background-color: #f2f2f2;
+        background-color: white;
+        border: none;
       }
+      .selete_person /deep/ .el-form-item__label {
+        text-align: left;
+      }
+      .selete_person {
+        
+      }
+      .radio {
+          height: 40px;
+          line-height: 40px;
+        }
       .all_person_item {
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
         .pserson_item {
           box-sizing: border-box;
           width: 85px;
-            height: 40px;
+          height: 40px;
           border-radius: 10px;
           border: 1px solid #cccccc;
           display: flex;
-            margin-bottom: 20px;
+          margin-bottom: 20px;
           text-align: center;
           align-items: center;
-        //   margin-right: 26px;
+          //   margin-right: 26px;
           .pserson_item_name {
             width: 60%;
           }
           .pserson_item_name_icon {
+            position: relative;
             width: 40%;
+            .el-icon-close {
+              position: absolute;
+              right: 12px;
+              top: -3px;
+              left: 0;
+              font-size: 16px;
+            }
           }
           span {
             text-align: center;

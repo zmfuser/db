@@ -23,8 +23,8 @@
               <el-table-column prop="address" label="结算日期" align="center"></el-table-column>
               <el-table-column prop="address" label="操作" align="center">
                 <template slot-scope="scope">
-                  <el-button  class="notThrough_button" round  @click="updatTwodeparm(scope.row)">不通过</el-button>
-                  <el-button  class="through_button" round  @click="updatTwodeparm(scope.row)">通过</el-button>
+                  <el-button  class="notThrough_button" round  @click.stop="updatTwodeparm(scope.row)">不通过</el-button>
+                  <el-button  class="through_button" round  @click.stop="updatTwodeparm(scope.row)">通过</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -81,7 +81,7 @@ export default {
     toDital(){
       // this.$router.push("/PublicDetails")
       this.$router.push({
-        name:"PublicDetails",
+        name:"ExaminationMattersDetial",
         query:{
           note:"详情页面没有期数"
         }

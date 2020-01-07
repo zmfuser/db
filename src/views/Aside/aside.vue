@@ -5,15 +5,19 @@
         <div :class="company ?'icon_item_selete':'icon_item'">
           <div class="img_font" @click="routerGo('/home',111)">
             <div>
-              <img  src="../../assets/logo.png" style="width:95px;margin-bottom: 12px;" alt />
+              <img src="../../assets/logo.png" style="width:95px;margin-bottom: 12px;" alt />
             </div>
             <div>链通科技</div>
           </div>
         </div>
-        <div :class="item.selete? 'icon_item_selete': 'icon_item'"  v-for="(item,index) of asidelist" :key="index">
+        <div
+          :class="item.selete? 'icon_item_selete': 'icon_item'"
+          v-for="(item,index) of asidelist"
+          :key="index"
+        >
           <div class="img_font" @click="routerGo(item.routerUrl,index)">
             <div class="background_img">
-              <img  :src="item.selete? item.seleteIMg : item.notSeleteIMg " alt />
+              <img :src="item.selete? item.seleteIMg : item.notSeleteIMg " alt />
             </div>
             <div>{{item.name}}</div>
           </div>
@@ -27,8 +31,9 @@
 export default {
   data() {
     return {
-      company:false,
-      asidelist:[
+      company: false,
+      showBackgroundUrl: "",
+      asidelist: [
         // {
         //   selete:false,
         //   seleteIMg:require( '../../assets/logo.png'),
@@ -37,75 +42,97 @@ export default {
         //   name:"链通科技",
         // },
         {
-          selete:true,
-          seleteIMg:require("../../assets/nab_icon_home_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_home_not.png"),
-          routerUrl:"/home",
-          name:"首页",
+          selete: true,
+          seleteIMg: require("../../assets/nab_icon_home_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_home_not.png"),
+          routerUrl: "/home",
+          name: "首页"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_all_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_all_not.png"),
-          routerUrl:"/All",
-          name:"全部",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_all_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_all_not.png"),
+          routerUrl: "/All",
+          name: "全部"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_new_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_new_not.png"),
-          routerUrl:"/newItems",
-          name:"新建事项",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_new_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_new_not.png"),
+          routerUrl: "/newItems",
+          name: "新建事项"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_du_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_du_not.png"),
-          routerUrl:"/Supervisorymatters",
-          name:"督办事项",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_du_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_du_not.png"),
+          routerUrl: "/Supervisorymatters",
+          name: "督办事项"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_shen_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_shen_not.png"),
-          routerUrl:"/examination_atters",
-          name:"事项审批",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_shen_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_shen_not.png"),
+          routerUrl: "/examination_atters",
+          name: "事项审批"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_ping_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_ping_not.png"),
-          routerUrl:"/ItemEvaluation",
-          name:"事项评价",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_ping_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_ping_not.png"),
+          routerUrl: "/ItemEvaluation",
+          name: "事项评价"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_yan_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_yan_not.png"),
-          routerUrl:"/delaymatters",
-          name:"延期事项",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_yan_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_yan_not.png"),
+          routerUrl: "/delaymatters",
+          name: "延期事项"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_hui_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_hui_not.png"),
-          routerUrl:"/ReportingMatters",
-          name:"事项汇报",
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_hui_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_hui_not.png"),
+          routerUrl: "/ReportingMatters",
+          name: "事项汇报"
         },
         {
-          selete:false,
-          seleteIMg:require("../../assets/nab_icon_nub_set.png"),
-          notSeleteIMg:require("../../assets/nab_icon_nub_not.png"),
-          routerUrl:"/DataKanban",
-          name:"数据看板",
-        },
-      ]
+          selete: false,
+          seleteIMg: require("../../assets/nab_icon_nub_set.png"),
+          notSeleteIMg: require("../../assets/nab_icon_nub_not.png"),
+          routerUrl: "/DataKanban",
+          name: "数据看板"
+        }
+      ],
+      inOrOutasidelist: 0
     };
   },
+  watch: {
+    $route(to, form) {
+      let _this = this;
+      var showBackgroundUrlIndex = sessionStorage.getItem(
+        "showBackgroundUrlIndex"
+      );
+      this.asidelist.forEach(function(item, index) {
+        if (index == showBackgroundUrlIndex) {
+          item.selete = true;
+          _this.company = false;
+        } else if (showBackgroundUrlIndex == 111) {
+          _this.company = true;
+          item.selete = false;
+        } else {
+          item.selete = false;
+          _this.company = false;
+        }
+      });
+    }
+  },
   methods: {
-    routerGo(url,index){
-      let _this=this
-      this.$router.push(url)
+    routerGo(url, index) {
+      let _this = this;
+      this.$router.push(url);
+      sessionStorage.setItem("showBackgroundUrlIndex", index);
       this.asidelist.forEach(function(item,indexind){
         if (indexind==index) {
           item.selete=true

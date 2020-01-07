@@ -1,44 +1,39 @@
 <template>
   <div class="newItem">
     <div class="newItem_content">
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="92px"
-      >
-        <el-form-item label="标题" >
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="92px">
+        <el-form-item label="标题">
           <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="正文" >
+        <el-form-item label="正文">
           <el-input v-model="ruleForm.name" type="textarea" :rows="4"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="执行部门" >
+            <el-form-item label="执行部门">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="协办部门" >
+            <el-form-item label="协办部门">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
             <el-form-item label="审批人">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="开始时候" >
+            <el-form-item label="开始时候">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="执行负责人" >
+            <el-form-item label="执行负责人">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="审批人" >
+            <el-form-item label="审批人">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="抄送人" >
+            <el-form-item label="抄送人">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="结束时间" >
+            <el-form-item label="结束时间">
               <el-input v-model="ruleForm.name"></el-input>
             </el-form-item>
           </el-col>
@@ -66,22 +61,17 @@
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
               </el-form-item>
             </el-col>
-           
           </el-row>
         </div>
         <!-- nextnext -->
-        <el-form-item label="附件" class="upload_file" >
-            <div >
-         
-        </div>
+        <el-form-item label="附件" class="upload_file">
+          <div></div>
         </el-form-item>
-        
 
-        <el-form-item class="submi_button">
+        <!-- <el-form-item class="submi_button">
           <el-button type="primary" @click="submitForm('ruleForm')" round>通过</el-button>
           <el-button class="un_through" @click="submitForm('ruleForm')" round>不通过</el-button>
-       
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </div>
   </div>
@@ -195,7 +185,7 @@ export default {
         margin-bottom: 29px;
       }
       .text {
-          margin-left: -14px;
+        margin-left: -14px;
         font-family: MicrosoftYaHei-Bold;
         font-size: 24px;
       }
@@ -210,24 +200,24 @@ export default {
         margin-left: 20px;
       }
     }
-    .report_number /deep/ .el-input__inner{
-      background-color: #f0f0f0
+    .report_number /deep/ .el-input__inner {
+      background-color: #f0f0f0;
     }
-    .upload_file{
-        margin: 29px 10px 51px 0;
-        text-align: left;
+    .upload_file {
+      margin: 0px 10px 51px 0;
+      text-align: left;
     }
-    .submi_button{
-        .el-button--primary{
-            width: 150px;
-            border: none;
-            background-color: #f99d5a
-        }
-        .un_through{
-          width: 150px;
-          color: #f99d5a;
-          border: 1px solid #f99d5a;
-        }
+    .submi_button {
+      .el-button--primary {
+        width: 150px;
+        border: none;
+        background-color: #f99d5a;
+      }
+      .un_through {
+        width: 150px;
+        color: #f99d5a;
+        border: 1px solid #f99d5a;
+      }
     }
     // border:1px solid red;
   }

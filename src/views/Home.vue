@@ -23,7 +23,7 @@
       <div class="center">
         <div class="center_item">
           <div class="duban_item">
-            <img  src="../assets/home_icon_du.png" alt="">
+            <img src="../assets/home_icon_du.png" alt />
             <span class="item-dital">督办事项</span>
           </div>
           <div>企业增长值</div>
@@ -33,7 +33,7 @@
         </div>
         <div class="center_item_button">
           <div class="line_height yanqi_item">
-            <img  src="../assets/home_icon_yan.png" alt="">
+            <img src="../assets/home_icon_yan.png" alt />
             <span class="item-dital">延期事项</span>
           </div>
           <div class="center_item_button_dispaly">
@@ -57,14 +57,15 @@
           <div class="center_item_button_dispaly">
             <div class="with_button_item">出席省委全面深化改革第九次大会</div>
             <span class="button_ture">
-              <el-button type="warning" round size="medium">催办</el-button>
+              <el-button type="warning" round size="medium" v-if="false">催办</el-button>
+              <el-button type="warning" class="has_cuiBan" round  v-else="true">已催办</el-button>
             </span>
           </div>
         </div>
-        
+
         <div class="center_item_button">
           <div class="line_height huibao_item">
-             <img  src="../assets/home_icon_hui.png" alt="">
+            <img src="../assets/home_icon_hui.png" alt />
             <span class="item-dital">汇报事项</span>
           </div>
           <div class="center_item_button_dispaly">
@@ -76,7 +77,7 @@
           <div class="center_item_button_dispaly">
             <div class="with_button_item">出席省委全面深化改革第九次大会</div>
             <span class="button_ture">
-              <el-button type="warning" round size="medium" >催办</el-button>
+              <el-button type="warning" round size="medium">催办</el-button>
             </span>
           </div>
           <div class="center_item_button_dispaly">
@@ -92,7 +93,6 @@
             </span>
           </div>
         </div>
-        
       </div>
       <div class="bottom">
         <div class="bottom_left" id="leftTable"></div>
@@ -103,45 +103,181 @@
 </template>
 
 <script>
-
+import echarts from "echarts";
 export default {
   name: "home",
-  components: {
+  components: {},
+  mounted() {
+    this.drawTableleftTable();
+    this.drawTablerightTable();
   },
-  mounted(){
-    this.drawTable("leftTable");
-    this.drawTable("rightTable");
-  },
-  methods:{
+  methods: {
     // 图表
-    drawTable(value){
-      var myChart = this.$echarts.init(document.getElementById(value));
+    drawTableleftTable() {
+      var myChart = this.$echarts.init(document.getElementById("leftTable"));
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: '执行部门督办工作数'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis: {
-                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          subtext: "{a|}{b|     执行部门督办工作数}",
+          // text: "执行部门督办工作数",
+          subtextStyle: {
+            rich: {
+              a: {
+                color: "gray",
+                fontSize: 18,
+                backgroundColor: {
+                  image: require("../assets/home_icon_zhixin.png")
+                },
+                height:"34",
+              },
+              b: {
+                  
+                  fontFamily: "MicrosoftYaHei",
+                  fontSize: "16",
+                  fontWeight: "bold",
+                  fontStretch: "normal",
+                  letterSpacing: "0",
+                  color: "#84c23a"
+                }
+            }
+          },
+        
+          padding: [
+            31, // 上
+            10, // 右
+            5, // 下
+            31 // 左
+          ],
+          textStyle: {
+            fontFamily: "MicrosoftYaHei",
+            fontSize: "16",
+            fontWeight: "bold",
+            fontStretch: "normal",
+            letterSpacing: "0",
+            color: "#84c23a"
+          }
+        },
+        grid: {
+          top: "102", //距上边距
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+          left: "48", //距离左边距
+
+          right: "31", //距离右边距
+
+          bottom: "31" //距离下边距
+        },
+        tooltip: {},
+        // legend: {
+        //   data: ["销量"]
+        // },
+        xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: [5, 20, 36, 10, 10, 20],
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#dbeccc" },
+                  { offset: 1, color: "#a5ec62" }
+                ])
+              }
+            }
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
     },
-  }
+    // 图表
+    drawTablerightTable() {
+      var myChart = this.$echarts.init(document.getElementById("rightTable"));
 
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+           subtext: "{a|}{b|     协办部门督办工作数}",
+          // text: "协办部门督办工作数",
+           subtextStyle: {
+            rich: {
+              a: {
+                color: "gray",
+                fontSize: 18,
+                backgroundColor: {
+                  image: require("../assets/home_icon_xieban.png")
+                },
+                height:"34",
+              },
+              b: {
+                  
+                  fontFamily: "MicrosoftYaHei",
+                  fontSize: "16",
+                  fontWeight: "bold",
+                  fontStretch: "normal",
+                  letterSpacing: "0",
+                  color: "#edbb47"
+                }
+            }
+          },
+          padding: [
+            31, // 上
+            10, // 右
+            5, // 下
+            31 // 左
+          ],
+          textStyle: {
+            fontFamily: "MicrosoftYaHei",
+            fontSize: "16",
+            fontWeight: "bold",
+            fontStretch: "normal",
+            letterSpacing: "0",
+            color: "#edbb47"
+          }
+        },
+        grid: {
+          top: "102", //距上边距
+
+          left: "48", //距离左边距
+
+          right: "31", //距离右边距
+
+          bottom: "31" //距离下边距
+        },
+        tooltip: {},
+        // legend: {
+        //   data: ["销量"]
+        // },
+        xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: [5, 20, 36, 10, 10, 20],
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: "#f5ecd2" },
+                  { offset: 1, color: "#ebcf62" }
+                ])
+              }
+            }
+          }
+        ]
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -196,7 +332,7 @@ export default {
       width: 100%;
 
       .center_item {
-        padding:0 23px 24px 33px;
+        padding: 0 23px 24px 33px;
         text-align: left;
         // border:1px solid red;
         width: 29%;
@@ -207,17 +343,17 @@ export default {
         display: flex;
         flex-direction: column;
         // justify-content: space-evenly;
-        .duban_item{
+        .duban_item {
           display: flex;
           align-items: center;
-          img{
+          img {
             margin-right: 30px;
-            width:28px;height:34px;
+            width: 28px;
+            height: 34px;
           }
-          span{
-            color: #489cf0
+          span {
+            color: #489cf0;
           }
-          
         }
         div {
           //  display: flex;
@@ -228,34 +364,34 @@ export default {
         }
       }
       .center_item_button {
-        .yanqi_item{
-           display: flex;
+        .yanqi_item {
+          display: flex;
           align-items: center;
-          img{
+          img {
             margin-right: 30px;
-            width:34px;
-            height:34px;
+            width: 34px;
+            height: 34px;
           }
-          span{
-            color: #f0644d
+          span {
+            color: #f0644d;
           }
         }
-        .huibao_item{
-           display: flex;
+        .huibao_item {
+          display: flex;
           align-items: center;
-          img{
+          img {
             margin-right: 30px;
-            width:34px;
-            height:34px;
+            width: 34px;
+            height: 34px;
           }
-          span{
-            color: #f0914d
+          span {
+            color: #f0914d;
           }
         }
-        .line_height{
-          line-height: 68px
+        .line_height {
+          line-height: 68px;
         }
-       
+
         padding: 0 30px 0 35px;
         text-align: left;
         // border:1px solid red;
@@ -263,34 +399,48 @@ export default {
         height: 320px;
         background-color: white;
         border-radius: 10px;
-        .with_button_item{
+        .with_button_item {
           width: 66%;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        .center_item_button_dispaly{
+        .center_item_button_dispaly {
           line-height: 60px;
           display: flex;
           justify-content: space-between;
-          .button_ture{
+          .button_ture {
             margin-left: 7%;
+            .has_cuiBan{
+              border:1px solid #999999;
+              background-color: white;
+              color: #999;
+              width: 70px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+          .button_ture /deep/ .el-button--medium.is-round{
+            background-color: white;
+            color: #f0644d;
+            border: 1px solid #f0644d
           }
         }
       }
     }
-    .bottom{
+    .bottom {
       display: flex;
       // justify-content: space-between;
       width: 100%;
-      .bottom_left{
+      .bottom_left {
         background-color: white;
         height: 481px;
         width: calc(~"(50% - 15px)");
       }
-      .bottom_right{
+      .bottom_right {
         margin-left: 30px;
-         background-color: white;
+        background-color: white;
         width: calc(~"(50% - 15px)");
       }
     }

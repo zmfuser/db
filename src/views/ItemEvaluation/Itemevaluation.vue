@@ -20,7 +20,7 @@
               <el-table-column prop="address" label="结算日期" align="center"></el-table-column>
               <el-table-column prop="address" label="操作" align="center">
                 <template slot-scope="scope">
-                  <el-button class="evluation" round @click="updatTwodeparm(scope.row)">评价</el-button>
+                  <el-button class="evluation" round @click.stop="updatTwodeparm(scope.row)">评价</el-button>
                 </template>
               </el-table-column>
             </el-table>

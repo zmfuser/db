@@ -68,7 +68,13 @@ export default {
   methods: {
     // 查看详情
     toSupervisoryView(){
-      this.$router.push("/SupervisoryView")
+      // this.$router.push("/SupervisoryView")
+       this.$router.push({
+        name:"PublicDetails",
+        query:{
+          note:"SupervisoryView页面，有人汇报才展示，没人汇报跳批阅详情/ItemReviewDatil"
+        }
+      })
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);

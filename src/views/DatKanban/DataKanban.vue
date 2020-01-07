@@ -1,15 +1,15 @@
 <template>
   <div class="DataKanban">
     <div class="DataKanban_top">
-      <img  src="../../assets/shu_icon_lb.png" alt="">
+      <img src="../../assets/shu_icon_lb.png" alt />
       <span>协办综合秘书科“重大项目督办任务”已经延期1天，请相关领导及时跟进</span>
     </div>
     <div class="DataKanban_content">
       <div class="DataKanban_button">
-        <el-button type="primary" class="data_button" round>导出数据</el-button>
+        <el-button type="primary" class="data_button" round @click="downloadExcel">导出数据</el-button>
       </div>
       <div class="all_table">
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" align="center"></el-table-column>
           <el-table-column prop="date" label="部门" align="center"></el-table-column>
           <el-table-column label="完成" align="center">
@@ -34,7 +34,7 @@
           <el-scrollbar style="height:100%">
             <div class="top_top_scollbar">
               <div class="bottom_tital">督办部门参与人数</div>
-             
+
               <div class="bottom_left_item">
                 <span>综合秘书科</span>
                 <span>23</span>
@@ -145,7 +145,9 @@ export default {
           name: "王小虎",
           address: "上海市普陀区金沙江路 1516 弄"
         }
-      ]
+      ],
+      multipleSelection:[],
+      excelData:[],
     };
   },
   created() {},
@@ -153,6 +155,7 @@ export default {
     this.drawTable("Table");
   },
   methods: {
+    // 图表
     drawTable(value) {
       var myChart = this.$echarts.init(document.getElementById(value));
 
@@ -161,6 +164,15 @@ export default {
         color: ["#faea5a", "#faaa5a", "#8adb4f", "#f95af3", "#f05656"],
         title: {
           text: "部门项目数量"
+        },
+        grid: {
+          top: "62", //距上边距
+
+          left: "31", //距离左边距
+
+          right: "31", //距离右边距
+
+          bottom: "31" //距离下边距
         },
         tooltip: {},
         legend: {
@@ -208,6 +220,42 @@ export default {
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
     },
+    // 选择数据
+    handleSelectionChange(val) {
+      // 操作多选
+      this.multipleSelection = val; // 多选的行会存入multipleSelection数组中
+    },
+    // 列表下载
+    downloadExcel() {
+      this.$confirm("确定下载列表文件?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.excelData = this.multipleSelection; // multipleSelection是一个数组，存储表格中选择的行的数据。
+          this.export2Excel();
+        })
+        .catch(() => {});
+    },
+
+    // 数据写入excel
+    export2Excel() {
+      var that = this;
+      require.ensure([], () => {
+        const { export_json_to_excel } = require("@/excel/export2Excel"); // 这里必须使用绝对路径
+        const tHeader = ["部门", "提前完成", "按时完成","延期完成"]; // 导出的表头名信息
+        const filterVal = ["name", "date", "表头字段名3"]; // 导出的表头字段名，需要导出表格字段名
+        const list = that.excelData;
+        const data = that.formatJson(filterVal, list);
+
+        export_json_to_excel(tHeader, data, "各部门数据"); // 导出的表格名称，根据需要自己命名
+      });
+    },
+    // 格式转换
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]));
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
@@ -230,12 +278,12 @@ export default {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
-    img{
+    img {
       width: 24px;
       height: 20px;
       margin-left: 32px;
     }
-  
+
     span {
       margin-left: 19px;
       height: 23px;
@@ -275,8 +323,8 @@ export default {
         margin: 20px 20px 17px 0;
         padding: 30px 0;
         width: 100%;
-        .top_top_scollbar{
-         padding: 0 30px;
+        .top_top_scollbar {
+          padding: 0 30px;
         }
         .bottom_tital {
           font-family: MicrosoftYaHei-Bold;

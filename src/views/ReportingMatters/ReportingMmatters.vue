@@ -12,7 +12,7 @@
               <el-table-column prop="address" label="汇报时间" align="center"></el-table-column>
               <el-table-column prop="address" label="操作" align="center">
                 <template slot-scope="scope">
-                  <el-button  class="cb_button" round  @click="updatTwodeparm(scope.row)">汇报</el-button>
+                  <el-button  class="cb_button" round  @click.stop="updatTwodeparm(scope.row)">汇报</el-button>
                 </template>
               </el-table-column>
             </el-table>
